@@ -19,7 +19,7 @@ $seconds_per_year = 365.25*24*60*60;
 
 $dbh = DBI->connect("DBI:mysql:$database:$hostname", $user, $password);
 
-$sql = "select sum(($file_table.size*1.e-9)*(unix_timestamp(now())-unix_timestamp(atime))) as sumgby, $file_table.uid from $file_table group by $file_table.uid order by sumgby desc limit 10;";
+$sql = "select sum(($file_table.size*1.e-9)*(unix_timestamp(now())-unix_timestamp(atime))) as sumgby, $file_table.uid from $file_table group by $file_table.uid order by sumgby desc limit 20;";
 make_query($dbh, \$sth);
 $i = 1;
 while (@row = $sth->fetchrow_array) {
