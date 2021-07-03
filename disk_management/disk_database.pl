@@ -44,6 +44,7 @@ $sql = "create table $dir_table (
        id int primary key auto_increment,
        dirname varchar(256),
        size int,
+       mtime datetime,
        uid smallint
 );";
 make_query($dbh_db, \$sth);
@@ -53,6 +54,10 @@ $sql = "create table $file_table (
        dirId int,
        atime datetime,
        mtime datetime,
+       aage int,
+       mage int,
+       asizeage double,
+       msizeage double,
        size bigint,
        uid smallint
 );";
@@ -79,7 +84,7 @@ while ($dirname = <FINDDIR>) {
     if (!($idebug%1000)) {print "$idebug: dirname = $dirname";}
     chomp $dirname;
     @stat = stat($dirname);
-    $sql = "insert into $dir_table set dirname = \"$dirname\", uid = $stat[4], size = $stat[7];";
+    $sql = "insert into $dir_table set dirname = \"$dirname\", uid = $stat[4], size = $stat[7], mtime = from_unixtime($stat[9]);";
     #print $sql, "\n";
     make_query($dbh_db, \$sth);
     $sql = "select last_insert_id();";
