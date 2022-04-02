@@ -54,10 +54,6 @@ $sql = "create table $file_table (
        dirId int,
        atime datetime,
        mtime datetime,
-       aage int,
-       mage int,
-       asizeage double,
-       msizeage double,
        size bigint,
        uid smallint
 );";
